@@ -1,1 +1,8 @@
-this is a script
+#!/bin/bash
+
+# Set the threshold (e.g., 80%)
+THRESHOLD=80
+
+# Check disk usage and alert if over threshold
+df -h | grep -E '^/dev' | awk -v threshold=$THRESHOLD '{gsub("%","",$5); if($5 >= threshold) print "Warning:", $1, "mounted at", $6, "is", $5"%";}'
+
